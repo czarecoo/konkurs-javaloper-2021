@@ -1,0 +1,45 @@
+Błędy:
+1 literówka w słowie weather w nazwie package (wather -> weather)
+7 interface WeatherConnector nie ma zadnej implementacji (moze warto by bylo go zaimplementowac?)
+8 interface WeatherConnector zwraca tablice stringow (lepiej byloby uzyc kolekcji np listy)
+8 interface WeatherConnector moglby sie nazywac lepiej, to samo dotyczy metody weather (WeatherConnector -> WeatherCollector, weather() -> collect())
+10 nazwa klasy wskazuje na to ze bedziemy cos zapewniali a jedyna metoda sluzy do wysylania (MailProvider -> MailSender, sendMail() -> send())
+15 stala locations powinna miec modyfikator private
+15 stale piszemy wielkimi literami (locations-> LOCATIONS)
+15 nie uzywamy tablic (String[] -> List<String>)
+15 trzymanie lokacji w taki sposob bedzie wymagalo zmiany w kodzie i budowania calej aplikacji w momencie dodania / usuniecia wspieranej lokacji. Troszke lepiej bylo by gdybysmy ładowali te lokacje z pliku lub bazy danych. W kazdym razie proponowalbym zrobic interface LocationsProvider i pozniej robic implementacje w zaleznosci od potrzeb
+
+17 throws InterruptedException to zła praktyka, powinnismy złapać i obsłużyć wszystkie checked exceptions. Złapanie InterruptedException czysci flage innterupted na aktualnym wątku, powinnismy zlapac wyjatek i ustawic ja z powrotem na true uzywajac Thread.currentThread().interrupt();
+21 zamiast robic taska uzywajac klasy anonimowej proponowalbym zrobic nowa klase WeatherTask ktora implementowala by Runnable w nowym pliku
+22 przenioslbym tworzenie obiektu provider blizej uzycia
+
+24 random.nextInt() zwraca liczby wieksze od ilosci elementow w tablicy locations to bedzie prowadzilo do ArrayIndexOutOfBounds 
+26 prymitywne logowanie, lepiej byloby uzyc jakiegos frameworku do tego zadania
+47 juz po nazwie widac ze klasa nie ma konkretnego celu i lamie S w SOLID, potrzebny refaktor i rozbicie na kilka klas
+48 jest ustawiane w setterze ktory nie jest nigdzie uzyty czyli w 55 poleci NullPointerException
+49 nie jest ustawiane nigdzie i nie da sie tego zrobic bo jest private co oznacza NullPointerException w 61
+50 warto by bylo zrefaktorowac kod zeby cache zarzadzany byl przez inna, dedykowana klase
+52 po nazwie metody widac ze za duzo robi do kompletnego przepisania
+57 przeksztalcanie String do Double w taki sposob bedzie prowadzilo do NumberFormatException gdy drugi element tablicy nie bedzie liczba
+59 wkladamy pobrane dane do cache ale nigdy ich nie uzywamy
+61 mailProvider moglby przyjac obiekt weather skoro juz go zrobilismy
+64 nie powinno sie lapac exceptiona, lepiej byloby napisac kod ktory nie rzuca runtimeów
+65 log wypisze "Weather=" po czym doklei wynik uzycia toString na exceptionie, co bedzie wprowadzalo w blad
+66 zwracanie nulla to nie jest dobry pomysl, proponowalbym uzyc Optional albo jesli chcemy dac szane uzytkownikowi na ohandlowanie tego wyjatku rzucic checked exceptiona
+
+70 setter nie jest uzywany
+78 log(String) nie jest uzywany 
+
+83 brak konstruktora z 2 parameterami pomimo ze jest uzyty w 57
+83 brak napisanego toString pomimo ze jest uzyty do logowania w 30->39
+83 brak nadpisania equals i hashcode pomimo ze klasa jest uzyta w HashMapie
+
+33 petla for wykona sie 180 razy dla aktualnej ilosci lokacji, moze warto byloby sie zastnawioc czy jest sens wykonywac ja tyle razy
+34 watki nigdy nie sa startowane wiec join konczy sie bez zadnego czekania
+34 nawet jak zrobimy start() a pozniej join() ten kod nie ma sensu. Watki sa po to zeby wykonywac czynnosci rownoczesnie a nie czekac az watek sie skonczy zeby zrobic kolejny. To juz lepiej robic task.run() jesli ma to sie synchronicznie przetwarzac
+
+Ogólne błędy:
+3 klasy i 2 interfejsy w jednym pliku -> 5 plikow
+kompletny brak poszanowania do zasad Clean code
+totalnie spaprany kod wielkowatkowy
+brak zrozumienia dla wyjatkow i obslugi ich
