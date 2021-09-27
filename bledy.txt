@@ -1,9 +1,12 @@
 Błędy:
+3 klasy i 2 interfejsy w jednym pliku. (1 plik -> 5 plikow)
 1 literówka w słowie weather w nazwie package (wather -> weather)
 7 interface WeatherConnector nie ma zadnej implementacji (moze warto by bylo go zaimplementowac?)
 8 interface WeatherConnector zwraca tablice stringow (lepiej byloby uzyc kolekcji np listy)
 8 interface WeatherConnector moglby sie nazywac lepiej, to samo dotyczy metody weather (WeatherConnector -> WeatherCollector, weather() -> collect())
 10 nazwa klasy wskazuje na to ze bedziemy cos zapewniali a jedyna metoda sluzy do wysylania (MailProvider -> MailSender, sendMail() -> send())
+11 modyfikatory final nic nie wnosza, mowia jedynie ze referencja do obiektow string musi byc stala
+11 parametry maja nic nie mowiace nazwy argumentow
 15 stala locations powinna miec modyfikator private
 15 stale piszemy wielkimi literami (locations-> LOCATIONS)
 15 nie uzywamy tablic (String[] -> List<String>)
@@ -37,9 +40,3 @@ Błędy:
 33 petla for wykona sie 180 razy dla aktualnej ilosci lokacji, moze warto byloby sie zastnawioc czy jest sens wykonywac ja tyle razy
 34 watki nigdy nie sa startowane wiec join konczy sie bez zadnego czekania
 34 nawet jak zrobimy start() a pozniej join() ten kod nie ma sensu. Watki sa po to zeby wykonywac czynnosci rownoczesnie a nie czekac az watek sie skonczy zeby zrobic kolejny. To juz lepiej robic task.run() jesli ma to sie synchronicznie przetwarzac
-
-Ogólne błędy:
-3 klasy i 2 interfejsy w jednym pliku -> 5 plikow
-kompletny brak poszanowania do zasad Clean code
-totalnie spaprany kod wielkowatkowy
-brak zrozumienia dla wyjatkow i obslugi ich
