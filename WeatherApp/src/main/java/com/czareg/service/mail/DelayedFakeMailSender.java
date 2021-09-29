@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class DelayedFakeMailSender implements MailSender {
-    public static final long MAIL_SENDING_MILLIS = 2000L;
+    private static final long MAIL_SENDING_MILLIS = 2000L;
 
     @Override
     public void send(Weather weather) {

@@ -10,19 +10,19 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 @Component
-public class RandomLocationGetter implements LocationGetter {
+public class RandomLocationProvider implements LocationProvider {
     private final List<Location> locations;
     private final Random random;
 
-    public RandomLocationGetter() {
+    public RandomLocationProvider() {
         random = new Random();
-        locations = Stream.of("Tokyo", "Warsaw", "London")
+        locations = Stream.of("Cracow", "Warsaw", "London", "Lodz", "Kielce", "Tokyo", "NewYork", "Buenos Aires", "Rzeszow")
                 .map(Location::new)
                 .collect(toList());
     }
 
     @Override
-    public Location get() {
+    public Location provide() {
         int max = locations.size();
         int randomIndex = random.nextInt(max);
         return locations.get(randomIndex);

@@ -9,12 +9,8 @@ import java.util.Random;
 
 @Component
 public class RandomWeatherCollector implements WeatherCollector {
-    public static final int HIGHEST_TEMPERATURE = 40;
-    private final Random random;
-
-    public RandomWeatherCollector() {
-        random = new Random();
-    }
+    private static final int HIGHEST_TEMPERATURE = 40;
+    private final Random random = new Random();
 
     @Override
     public Weather collect(Location location) {

@@ -1,7 +1,7 @@
 package com.czareg;
 
 import com.czareg.service.WeatherService;
-import com.czareg.service.location.LocationGetter;
+import com.czareg.service.location.LocationProvider;
 import com.czareg.service.model.Location;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @AllArgsConstructor
 @SpringBootApplication
 public class WeatherApp implements CommandLineRunner {
-    private final LocationGetter locationGetter;
+    private final LocationProvider locationProvider;
     private final WeatherService weatherService;
 
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class WeatherApp implements CommandLineRunner {
     @Override
     public void run(String... args) {
         for (int i = 0; i <= 50; i++) {
-            Location location = locationGetter.get();
+            Location location = locationProvider.provide();
             weatherService.processWeather(location);
         }
     }
